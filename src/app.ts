@@ -1,13 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { loggerMiddleware } from './middleware';
-import { authMiddleware } from './middleware';
+import { loggerMiddleware, authMiddleware, validateData } from './middleware';
+import { UserSchema } from './schemas/user.schemas';
 
 const app = express();
 app.use(express.json());
-app.use(loggerMiddleware)
+app.use(loggerMiddleware);
 
-
-app.post('/user', (req: Request, res: Response) => {
+app.post('/user', validateData(UserSchema), (req: Request, res: Response) => {
   const userData = req.body;
 
   console.log('Received:', userData);
