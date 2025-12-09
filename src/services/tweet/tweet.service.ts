@@ -1,4 +1,4 @@
-import { prisma } from '../lib/prisma';
+import {prisma} from '../../lib/prisma'
 
 export const getFeed = async (currentUserId: string) => {
   const following = await prisma.follows.findMany({

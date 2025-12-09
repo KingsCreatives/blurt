@@ -1,7 +1,7 @@
 import {prisma} from '../src/lib/prisma'
 
 async function main() {
-  console.log('Starting seeding...');
+  console.log('🌱 Starting seeding...');
 
   await prisma.like.deleteMany();
   await prisma.follows.deleteMany();
@@ -32,8 +32,8 @@ async function main() {
     },
   });
 
-  console.log('Users created: Alice, Bob, Charlie');
-
+  console.log('✅ Users created: Alice, Bob, Charlie');
+   
   const tweet1 = await prisma.tweet.create({
     data: {
       content: 'Hello Twitter! This is Alice.',
@@ -57,8 +57,8 @@ async function main() {
     },
   });
 
-  console.log('Tweets created');
-
+  console.log('✅ Tweets created');
+  
   await prisma.follows.create({
     data: {
       followerId: charlie.id,
@@ -80,8 +80,8 @@ async function main() {
     },
   });
 
-  console.log('Follow relationships established');
-
+  console.log('✅ Follow relationships established');
+  
   await prisma.like.create({
     data: {
       userId: charlie.id,
@@ -89,8 +89,8 @@ async function main() {
     },
   });
 
-  console.log('Likes added');
-  console.log('Seeding finished.');
+  console.log('✅ Likes added');
+  console.log('🏁 Seeding finished.');
 }
 
 main()

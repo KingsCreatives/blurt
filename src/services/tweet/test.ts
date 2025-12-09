@@ -1,11 +1,11 @@
-import { prisma } from '../lib/prisma'; 
+import { prisma } from '../../lib/prisma';
 import { getFeed } from './tweet.service';
 
 async function main() {
   try {
     console.log('Looking for Charlie...');
     const charlie = await prisma.user.findUnique({
-      where: { username: 'charlie_fan' }
+      where: { username: 'charlie_fan' },
     });
 
     if (!charlie) {
