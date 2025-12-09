@@ -1,10 +1,19 @@
-import { User } from "../schemas/user.schemas";
+import { User } from "../../schemas/user.schemas";
+import { prisma } from "../../lib/prisma";
+import { hashPassword } from '../../utils/password'
+
 
 export const createUser = async (data: User) => {
-    console.log("Service: Saving user to DB....", data)
-    return {
-        id: "user_123",
-        ...data,
-        createdAt: new Date()
-    }
+    const hashedPassword = await hashPassword(data.password)
+
+     const user = await prisma.user.create({
+       data: {
+         ...data,
+         password: hashedPassword,
+       },
+     });
+
+     return user;
 }
+
+ 
