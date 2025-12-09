@@ -1,4 +1,4 @@
-import { prisma } from '../../lib/prisma'; 
+import { prisma } from '../lib/prisma'; 
 import { getFeed } from './tweet.service';
 
 async function main() {
