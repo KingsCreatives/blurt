@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import * as UserService from '../services/user.service'
+import * as UserService from '../services/user/user.service'
 
 export const createUserController = async(
     req: Request,
