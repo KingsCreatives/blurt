@@ -1,7 +1,7 @@
-import {prisma} from '../src/lib/prisma'
+import { prisma } from '../src/lib/prisma'; 
 
 async function main() {
-  console.log('🌱 Starting seeding...');
+  console.log('🌱 Starting Bulk Seeding...');
 
   await prisma.like.deleteMany();
   await prisma.follows.deleteMany();
@@ -12,14 +12,6 @@ async function main() {
     data: {
       email: 'alice@twitter.com',
       username: 'alice_w',
-      password: 'password123', 
-    },
-  });
-
-  const bob = await prisma.user.create({
-    data: {
-      email: 'bob@twitter.com',
-      username: 'bob_the_builder',
       password: 'password123',
     },
   });
@@ -32,64 +24,30 @@ async function main() {
     },
   });
 
-  console.log('✅ Users created: Alice, Bob, Charlie');
-   
-  const tweet1 = await prisma.tweet.create({
-    data: {
-      content: 'Hello Twitter! This is Alice.',
+  console.log('✅ Users created.');
+
+  await prisma.follows.create({
+    data: { followerId: charlie.id, followingId: alice.id },
+  });
+
+  console.log('✅ Charlie is following Alice.');
+
+  console.log('⏳ Generating 25 tweets...');
+
+  const tweetsToCreate = [];
+  for (let i = 0; i < 25; i++) {
+    tweetsToCreate.push({
+      content: `Tweet number ${i + 1} from Alice! 🐦`,
       authorId: alice.id,
-      createdAt: new Date('2023-01-01'), 
-    },
+      createdAt: new Date(Date.now() - i * 60 * 1000),
+    });
+  }
+
+  await prisma.tweet.createMany({
+    data: tweetsToCreate,
   });
 
-  const tweet2 = await prisma.tweet.create({
-    data: {
-      content: 'Just finished a project. #coding',
-      authorId: alice.id,
-      createdAt: new Date(), 
-    },
-  });
-
-  const tweet3 = await prisma.tweet.create({
-    data: {
-      content: 'Can we fix it? Yes we can!',
-      authorId: bob.id,
-    },
-  });
-
-  console.log('✅ Tweets created');
-  
-  await prisma.follows.create({
-    data: {
-      followerId: charlie.id,
-      followingId: alice.id,
-    },
-  });
-
-  await prisma.follows.create({
-    data: {
-      followerId: charlie.id,
-      followingId: bob.id,
-    },
-  });
-
-  await prisma.follows.create({
-    data: {
-      followerId: bob.id,
-      followingId: alice.id,
-    },
-  });
-
-  console.log('✅ Follow relationships established');
-  
-  await prisma.like.create({
-    data: {
-      userId: charlie.id,
-      tweetId: tweet1.id,
-    },
-  });
-
-  console.log('✅ Likes added');
+  console.log('✅ 25 Tweets created.');
   console.log('🏁 Seeding finished.');
 }
 
