@@ -18,7 +18,7 @@ async function main() {
 
     const feed = await getFeed(charlie.id);
 
-    console.log(`Feed received: ${feed.length} tweets`);
+    console.log(`Feed received: ${feed.tweets.length} tweets`);
     console.log(JSON.stringify(feed, null, 2));
   } catch (error) {
     console.error('Error:', error);
