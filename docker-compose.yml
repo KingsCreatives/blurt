@@ -1,16 +1,25 @@
 services:
+  api:
+    build: .
+    ports:
+      - '4000:4000'
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}?schema=public
+      - JWT_SECRET=${JWT_SECRET}
+      - PORT=${PORT}
+
   db:
     image: postgres:15-alpine
-    container_name: blurt_db
     restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
     ports:
       - '5432:5432'
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
 volumes:
   postgres_data:
