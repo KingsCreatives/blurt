@@ -1,4 +1,4 @@
-import { login } from '../auth/auth.service';
+import { loginUser } from '../auth/auth.service';
 import { createUser } from '../user/user.service'
 import { prisma } from '../../lib/prisma';
 
@@ -14,7 +14,7 @@ async function main() {
 
   console.log('⏳ Attempting to log in...');
   try {
-    const result = await login({ email, password });
+    const result = await loginUser({ email, password });
 
     console.log('\n🎉 LOGIN SUCCESS!');
     console.log(`👤 User: ${result.user.username}`);
