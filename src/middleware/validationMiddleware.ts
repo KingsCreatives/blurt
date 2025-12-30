@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { ZodType, ZodError } from 'zod';
+import { StatusCodes } from 'http-status-codes';
 
 export const validateData = (schema: ZodType) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -13,8 +14,7 @@ export const validateData = (schema: ZodType) => {
           field: issue.path.join('.'),
         }));
 
-        return res.status(400).json({
-          status: 'Bad Request',
+        return res.status(StatusCodes.BAD_REQUEST).json({
           errors: errorMessages,
         });
       }
