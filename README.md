@@ -7,8 +7,6 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://www.postgresql.org/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](https://www.docker.com/)
 
-**Current Status:** Week 2 Complete - Core Logic & Dockerization ✅
-
 ---
 
 ## 📖 Overview
