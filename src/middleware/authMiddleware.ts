@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
 export interface AuthRequest extends Request {
-  user?: string | object;
+  user?: {id: string};
 }
 
 export const authMiddleware = (
@@ -25,7 +25,7 @@ export const authMiddleware = (
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded;
+    req.user = decoded as {id: string};
     next();
   } catch (error) {
     return res

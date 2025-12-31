@@ -5,12 +5,12 @@ export const getFeed = async (
   limit: number = 10,
   cursor?: string
 ) => {
-  
   const following = await prisma.follows.findMany({
     where: { followerId: userId },
     select: { followingId: true },
   });
   const followingIds = following.map((f) => f.followingId);
+  followingIds.push(userId);
 
   const tweets = await prisma.tweet.findMany({
     take: limit,
@@ -39,4 +39,13 @@ export const getFeed = async (
     tweets,
     nextCursor,
   };
+};
+
+export const createTweet = async (userId: string, content: string) => {
+  return await prisma.tweet.create({
+    data: {
+      content,
+      authorId: userId,
+    },
+  });
 };
