@@ -14,3 +14,10 @@ export const createUser = async (data: User) => {
 
   return user;
 };
+
+export const updateUserAvatar = async (userId: string, avatar: string) => {
+  return prisma.user.update({
+    where: { id: userId },
+    data: { avatar },
+  });
+};

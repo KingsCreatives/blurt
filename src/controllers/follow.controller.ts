@@ -1,9 +1,8 @@
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { followUser, unfollowerUser } from '../services/user/follow.service';
-import { AuthRequest } from '../middleware/authMiddleware';
 
-export const follow = async (req: AuthRequest, res: Response) => {
+export const follow = async (req: Request, res: Response) => {
   const followerId = req.user?.id;
   const followingId = req.params.id;
 
@@ -32,7 +31,7 @@ export const follow = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const unfollow = async (req: AuthRequest, res: Response) => {
+export const unfollow = async (req: Request, res: Response) => {
   const followerId = req.user?.id;
   const followingId = req.params.id;
 
