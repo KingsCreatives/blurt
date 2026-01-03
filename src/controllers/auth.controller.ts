@@ -3,7 +3,6 @@ import { createUser } from '../services/user/user.service';
 import { RegisterSchema, LoginSchema } from '../schemas/auth.schema';
 import { loginUser } from '../services/auth/auth.service';
 import { StatusCodes } from 'http-status-codes';
-import { AuthRequest } from '../middleware/authMiddleware';
 
 export const register = async (req: Request, res: Response) => {
   try {
@@ -42,6 +41,6 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-export const getMe = async (req: AuthRequest, res: Response) => {
+export const getMe = async (req: Request, res: Response) => {
   return res.json(req.user);
 };
