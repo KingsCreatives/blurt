@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import * as UserService from '../services/user/user.service';
 import { StatusCodes } from 'http-status-codes';
-import { updateUserAvatar } from '../services/user/user.service';
+import {
+  updateUserAvatar,
+  createUser,
+  UserAlreadyExistsError,
+} from '../services/user/user.service';
 
 export const createUserController = async (
   req: Request,
@@ -10,13 +13,19 @@ export const createUserController = async (
 ) => {
   try {
     const userData = req.body;
-    const newUser = await UserService.createUser(userData);
+    const newUser = await createUser(userData);
     res.status(StatusCodes.CREATED).json({
       message: 'User created succesffuly',
       data: newUser,
     });
   } catch (error) {
-    next(error);
+    if (error instanceof UserAlreadyExistsError) {
+      return res.status(StatusCodes.CONFLICT).json({ error: error.message });
+    }
+
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ error: 'Something went wrong' });
   }
 };
 
