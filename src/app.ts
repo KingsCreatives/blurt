@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(loggerMiddleware);
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('src/uploads'));
 
 
 app.use('/user', userRouter);
