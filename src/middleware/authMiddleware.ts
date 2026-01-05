@@ -29,7 +29,7 @@ export const authMiddleware = (
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as { id: string };
-    req.user = decoded; // Now TypeScript knows 'user' can exist on 'req'
+    req.user = decoded; 
     next();
   } catch (error) {
     return res
