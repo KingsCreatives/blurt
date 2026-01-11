@@ -3,8 +3,8 @@ import { StatusCodes } from 'http-status-codes';
 import { followUser, unfollowerUser } from '../services/user/follow.service';
 
 export const follow = async (req: Request, res: Response) => {
-  const followerId = req.user?.id;
-  const followingId = req.params.id;
+  const followerId = req.user?.id as string;
+  const followingId = req.params.id as string;
 
   if (!followerId) {
     return res
@@ -32,8 +32,8 @@ export const follow = async (req: Request, res: Response) => {
 };
 
 export const unfollow = async (req: Request, res: Response) => {
-  const followerId = req.user?.id;
-  const followingId = req.params.id;
+  const followerId = req.user?.id as string;
+  const followingId = req.params.id as string;
 
   if (!followerId) {
     return res

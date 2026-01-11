@@ -9,7 +9,11 @@ export const getFeed = async (
     where: { followerId: userId },
     select: { followingId: true },
   });
-  const followingIds = following.map((f) => f.followingId);
+
+  const followingIds = following.map(
+    (f: { followingId: string }) => f.followingId
+  );
+
   followingIds.push(userId);
 
   const tweets = await prisma.tweet.findMany({
