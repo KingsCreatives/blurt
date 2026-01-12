@@ -1,6 +1,6 @@
-import { followUser, unfollowerUser } from './follow.service';
-import { createUser } from './user.service';
 import { prisma } from '../../lib/prisma';
+import { followUser, unfollowerUser } from './follow.service';
+import { registerUser } from '../auth/auth.service';
 
 async function main() {
   console.log('🤝 Testing Social Graph...');
@@ -12,13 +12,17 @@ async function main() {
     where: { email: { in: [daveEmail, aliceEmail] } },
   });
 
-  const dave = await createUser({
+  const dave = await registerUser({
     email: daveEmail,
     username: 'dave_social',
     password: 'pass123',
   });
 
-  const alice = await createUser({email:aliceEmail, username:'alice_social', password: 'pass123'});
+  const alice = await registerUser({
+    email: aliceEmail,
+    username: 'alice_social',
+    password: 'pass123',
+  });
 
   console.log(`✅ Users created: Dave (${dave.id}) & Alice (${alice.id})`);
 

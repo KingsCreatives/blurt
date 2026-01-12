@@ -1,5 +1,4 @@
-import { loginUser } from '../auth/auth.service';
-import { createUser } from '../user/user.service'
+import { loginUser, registerUser } from '../auth/auth.service';
 import { prisma } from '../../lib/prisma';
 
 async function main() {
@@ -9,7 +8,11 @@ async function main() {
   const password = 'password123';
 
   await prisma.user.deleteMany({ where: { email } });
-  await createUser({email: email, username:"jwt_tester", password: password});
+  await registerUser({
+    email: email,
+    username: 'jwt_tester',
+    password: password,
+  });
   console.log('✅ User created.');
 
   console.log('⏳ Attempting to log in...');
