@@ -51,5 +51,65 @@ export const createTweet = async (userId: string, content: string) => {
       content,
       authorId: userId,
     },
+    select: {
+      id: true,
+      content: true,
+      createdAt: true,
+    },
   });
+};
+
+export const updateTweet = async (
+  tweetId: string,
+  userId: string,
+  content: string
+) => {
+  const tweet = await prisma.tweet.findUnique({ where: { id: tweetId } });
+
+  if (!tweet) {
+    throw new Error('Tweet not found');
+  }
+
+  if (tweet.authorId !== userId) {
+    throw new Error('Not allowed to edit this tweet');
+  }
+
+  return prisma.tweet.update({
+    where: { id: tweetId },
+    data: {
+      content,
+    },
+  });
+};
+
+export const removeTweet = async (tweetId: string, userId: string) => {
+  const tweet = await prisma.tweet.findUnique({ where: { id: tweetId } });
+
+  if (!tweet) {
+    throw new Error('Tweet not found');
+  }
+
+  if (tweet.authorId !== userId) {
+    throw new Error('Not allowed to delete this tweet');
+  }
+
+  return await prisma.tweet.delete({ where: { id: tweetId } });
+};
+
+export const getTweet = async (tweetId: string) => {
+  const tweet = await prisma.tweet.findUnique({
+    where: { id: tweetId },
+    select: {
+      id: true,
+      content: true,
+      updatedAt: true,
+      createdAt: true,
+    },
+  });
+
+  if (!tweet) {
+    throw new Error('Tweet not found');
+  }
+
+  return tweet;
 };
