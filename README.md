@@ -1,299 +1,260 @@
-# 🦜 Blurt API
+# 🐦 Blurt API — Social Media Backend
 
-> A production-grade, scalable backend for a Twitter-like social media platform built with modern TypeScript architecture.
-
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-20-green.svg)](https://nodejs.org/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://www.postgresql.org/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](https://www.docker.com/)
+**Live Demo URL:** *(add later if deployed)*
 
 ---
 
-## 📖 Overview
+## 🚀 Overview
 
-Blurt API is a fully-featured social media backend designed with scalability and maintainability in mind. Built using Domain-Driven Design principles, it provides a robust foundation for real-time social interactions, content distribution, and user management.
+**Blurt API** is a production-grade, scalable backend for a Twitter-like social media platform. It is built with **Node.js, TypeScript, Express, Prisma, and PostgreSQL**, following clean architecture and service-layer patterns.
 
-### Why Blurt?
-
-- **🎯 Production-Ready**: Industry-standard authentication, error handling, and security practices
-- **📈 Scalable Architecture**: Cursor-based pagination and optimized database queries
-- **🔒 Type-Safe**: End-to-end TypeScript with Prisma-generated types
-- **🐳 Cloud-Native**: Fully containerized for easy deployment
-- **🧩 Modular Design**: Clean separation of concerns with DDD patterns
+The system focuses on **correct resource modeling**, **secure authentication**, and **social graph features** such as following users and building personalized timelines. It is fully containerized with Docker and designed for real-world backend interviews and production use.
 
 ---
 
-## 🛠 Tech Stack
+## 🎥 Video Demo
 
-| Category | Technology |
-|----------|-----------|
-| **Runtime** | Node.js v20 |
-| **Language** | TypeScript |
-| **Database** | PostgreSQL |
-| **ORM** | Prisma |
-| **Authentication** | JWT + Argon2 |
-| **Containerization** | Docker |
-| **Architecture** | DDD + Service Layer Pattern |
+**2-minute Demo Video (Architecture + API Walkthrough)**
+*(To be added — Day 26)*
 
 ---
 
-## ✨ Features
+## ⚡ Key Features
 
-### 🔐 Authentication & Security
-- Secure user registration and login
-- Password hashing with Argon2
-- JWT-based stateless authentication
-- Protected routes with middleware validation
+* **Authentication**
 
-### 🐦 Tweet Management
-- Create and publish tweets
-- Personalized timeline feeds
-- Optimized query performance
+  * Secure user registration & login
+  * JWT-based authentication
+  * Password hashing with Argon2
+* **User Management**
 
-### 📜 Smart Pagination
-- Cursor-based infinite scroll
-- No "page drift" issues
-- Efficient for large datasets
+  * Follow / Unfollow users
+  * Fetch authenticated user (`/user/me`)
+  * Avatar upload with Multer
+* **Tweet System**
 
-### 🤝 Social Graph
-- Follow/Unfollow users
-- Complex relationship queries
-- Feed personalization based on follows
+  * Create tweets
+  * Edit tweets (author-only)
+  * Delete tweets (author-only)
+  * Fetch a single tweet
+  * Personalized timeline feed
+* **Authorization**
 
-### 🛡 Type Safety
-- Compile-time type checking
-- Auto-generated Prisma types
-- Reduced runtime errors
+  * Ownership checks for tweet updates & deletion
+  * Protected routes using middleware
+* **Documentation**
+
+  * Swagger / OpenAPI docs using JSDoc annotations
+* **Infrastructure**
+
+  * Docker & Docker Compose
+  * PostgreSQL with Prisma ORM
+* **CI/CD (Planned)**
+
+  * Jenkins-based pipeline (GitHub Actions blocked due to billing)
 
 ---
 
-## 🚀 Quick Start
+## 🛠️ Technology Stack
+
+| Component  | Technology              | Role                    |
+| ---------- | ----------------------- | ----------------------- |
+| Language   | TypeScript              | Type-safe backend logic |
+| Runtime    | Node.js 20              | Server runtime          |
+| Framework  | Express                 | HTTP server             |
+| Database   | PostgreSQL 15           | Relational database     |
+| ORM        | Prisma                  | Type-safe DB access     |
+| Auth       | JWT + Argon2            | Secure authentication   |
+| Uploads    | Multer                  | Avatar uploads          |
+| Docs       | Swagger (OpenAPI)       | API documentation       |
+| Containers | Docker & Docker Compose | Deployment              |
+
+---
+
+## 🌍 Deployment Notes
+
+* Fully Dockerized for local or cloud deployment
+* Designed to run on **EC2 / VPS**
+* Supports persistent volumes for:
+
+  * PostgreSQL data
+  * Uploaded avatars
+
+---
+
+## 🔧 Local Setup Guide
 
 ### Prerequisites
 
-Before you begin, ensure you have the following installed:
-
-- **Node.js** v18 or higher ([Download](https://nodejs.org/))
-- **PostgreSQL** v12+ (Local or Cloud instance)
-- **Docker Desktop** (Optional, for containerization)
-- **Git** for version control
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd blurt
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure environment variables**
-   
-   Create a `.env` file in the project root:
-   ```bash
-   PORT=4000
-   DATABASE_URL="postgresql://user:password@localhost:5432/blurt_db?schema=public"
-   JWT_SECRET="your_super_secret_key_here_change_in_production"
-   NODE_ENV="development"
-   ```
-
-4. **Set up the database**
-   ```bash
-   # Run migrations
-   npx prisma migrate dev --name init
-   
-   # Generate Prisma Client
-   npx prisma generate
-   ```
-
-5. **Seed the database** (Optional but recommended)
-   ```bash
-   npx prisma db seed
-   ```
-   This populates your database with sample users and tweets for testing.
-
-6. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-   
-   The API will be available at `http://localhost:4000`
+* Docker & Docker Compose
+* Git
 
 ---
 
-## 🐳 Docker Deployment
-
-### Building the Image
+### 1. Clone the Repository
 
 ```bash
-docker build -t blurt-api:latest .
-```
-
-### Running with Docker Compose
-
-For a complete setup with PostgreSQL:
-
-```bash
-docker-compose up -d
-```
-
-### Production Deployment
-
-```bash
-# Build production image
-docker build -t blurt-api:prod --target production .
-
-# Run container
-docker run -p 4000:4000 \
-  -e DATABASE_URL="your_production_db_url" \
-  -e JWT_SECRET="your_production_secret" \
-  blurt-api:prod
+git clone https://github.com/KingsCreatives/blurt.git
+cd blurt
 ```
 
 ---
 
-## 📂 Project Architecture
+### 2. Configure Environment Variables
 
-```
-src/
-├── controllers/         # HTTP request handlers
-│   ├── auth.controller.ts
-│   ├── tweet.controller.ts
-│   └── user.controller.ts
-│
-├── services/           # Business logic layer
-│   ├── auth/          # Authentication services
-│   ├── tweet/         # Tweet management
-│   └── user/          # User operations
-│
-├── routes/            # API route definitions
-│   ├── auth.routes.ts
-│   ├── tweet.routes.ts
-│   └── user.routes.ts
-│
-├── middleware/        # Express middleware
-│   ├── auth.middleware.ts
-│   └── error.middleware.ts
-│
-├── lib/              # Shared utilities
-│   └── prisma.ts     # Prisma client instance
-│
-├── utils/            # Helper functions
-│   ├── jwt.ts
-│   └── hash.ts
-│
-└── app.ts           # Application entry point
-```
-
-### Architecture Principles
-
-- **Controllers**: Handle HTTP concerns (request/response)
-- **Services**: Contain all business logic and validation
-- **Middleware**: Cross-cutting concerns (auth, logging, errors)
-- **Routes**: Define API endpoints and bind controllers
-- **Utils**: Reusable helper functions
-
----
-
-## 🧪 Testing
-
-### Running Test Scripts
-
-We provide standalone test scripts to verify core functionality:
+Create a `.env` file in the project root:
 
 ```bash
-# Test authentication flow
-npx ts-node src/services/auth/test-login.ts
+PORT=4000
 
-# Test pagination logic
-npx ts-node src/services/tweet/test-pagination.ts
+DATABASE_URL=postgresql://postgres:postgres@postgres:5432/blurt_db?schema=public
 
-# Test follow/unfollow system
-npx ts-node src/services/user/test-follow.ts
+JWT_SECRET=super-secret-key
+
+NODE_ENV=development
 ```
-
-### Test Coverage
-
-- ✅ User registration and login
-- ✅ JWT token generation and validation
-- ✅ Cursor-based pagination
-- ✅ Follow/Unfollow relationships
-- ✅ Timeline feed generation
 
 ---
 
-## 🔌 API Endpoints
+### 3. Start the Application
+
+```bash
+docker compose up --build
+```
+
+The API will be available at:
+
+```
+http://localhost:4000
+```
+
+---
+
+### 4. Run Prisma Migrations
+
+Inside the API container:
+
+```bash
+docker compose exec api npx prisma migrate deploy
+```
+
+---
+
+## 📘 API Documentation (Swagger)
+
+Swagger UI is available at:
+
+```
+http://localhost:4000/docs
+```
+
+Includes documentation for:
+
+* Auth (register, login)
+* Users (me, follow, unfollow, avatar)
+* Tweets (create, edit, delete, fetch one, timeline)
+
+---
+
+## 🧪 Core API Workflows
 
 ### Authentication
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/signup` | Register new user |
-| POST | `/api/auth/login` | Authenticate user |
+1. **Register**
 
-### Tweets
+   ```
+   POST /user
+   ```
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/tweets` | Create tweet |
-| GET | `/api/tweets/timeline` | Get personalized feed |
+2. **Login**
 
-### Users
+   ```
+   POST /auth/login
+   ```
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/users/:id/follow` | Follow user |
-| DELETE | `/api/users/:id/follow` | Unfollow user |
-| GET | `/api/users/:id` | Get user profile |
+3. **Get Current User**
+
+   ```
+   GET /user/me
+   ```
 
 ---
 
-## 🔮 Roadmap
+### Tweets
 
-### ✅ Completed
-- [x] Database schema design with Prisma
-- [x] Core business logic implementation
-- [x] JWT authentication system
-- [x] Cursor-based pagination
-- [x] Docker containerization
-- [x] Follow/Unfollow system
+| Action        | Endpoint             |
+| ------------- | -------------------- |
+| Create tweet  | `POST /tweets`       |
+| Edit tweet    | `PUT /tweets/:id`    |
+| Delete tweet  | `DELETE /tweets/:id` |
+| Get one tweet | `GET /tweets/:id`    |
+| Timeline      | `GET /tweets`        |
 
-### 🚧 In Progress
-- [ ] REST API controllers and routing
-- [ ] Comprehensive error handling middleware
-- [ ] Request validation with Zod
+---
 
-### 📅 Upcoming
-- [ ] Unit and integration tests
-- [ ] CI/CD pipeline setup
-- [ ] Rate limiting and security hardening
-- [ ] API documentation with Swagger
-- [ ] Cloud deployment (AWS/GCP/Azure)
-- [ ] Redis caching layer
-- [ ] WebSocket support for real-time updates
+## 📂 Project Structure
+
+```
+src/
+├── controllers/        # Request handlers
+├── services/           # Business logic
+├── routes/             # Express routes
+├── middleware/         # Auth, validation
+├── schemas/            # Zod schemas
+├── lib/                # Prisma, Multer
+├── utils/              # Helpers
+├── app.ts              # App bootstrap
+└── server.ts           # Server entry
+```
+
+---
+
+## 🧠 Design Decisions
+
+* **Auth vs User separation**
+
+  * Auth handles credentials & tokens
+  * User handles profile & social graph
+* **Service Layer Pattern**
+
+  * Controllers are thin
+  * Business rules live in services
+* **Ownership Enforcement**
+
+  * Tweets can only be edited/deleted by their author
+* **Minimal API responses**
+
+  * No sensitive data leaked
+  * IDs returned for client-side state
+
+---
+
+## 🚧 CI/CD Status
+
+* GitHub Actions blocked due to billing restrictions
+* **Jenkins pipeline planned** (Day 27+)
+* Docker-first workflow already validated
+
+---
+
+## 🎯 Final Notes
+
+This project was built as a **real-world backend system**, not a tutorial app.
+It demonstrates:
+
+* Clean architecture
+* Correct REST resource modeling
+* Secure authentication
+* Production Docker workflows
+* Clear API documentation
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these steps:
-
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Commit with conventional commits
+4. Open a Pull Request
 
 ---
-
-<div align="center">
-
-**⭐ Star this repo if you find it helpful!**
-
-Made with ❤️ and TypeScript
-
-</div>
