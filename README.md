@@ -1,6 +1,6 @@
 # 🐦 Blurt API — Social Media Backend
 
-**Live Demo URL:** *(add later if deployed)*
+**Live Demo URL:** _[blurt-api](https://blurt-api.fly.dev/)_
 
 ---
 
@@ -16,43 +16,49 @@ The system focuses on **correct resource modeling**, **secure authentication**, 
 
 A short walkthrough demonstrating authentication, user flows, tweet creation, editing, deletion, and the Dockerized production setup.
 
-▶️ Watch on YouTube:  [Blurt API demo](https://youtu.be/fFulyKLuVas)
+▶️ Watch on YouTube: [Blurt API demo](https://youtu.be/fFulyKLuVas)
 
 ---
 
 ## ⚡ Key Features
 
-* **Authentication**
+- **Authentication**
 
-  * Secure user registration & login
-  * JWT-based authentication
-  * Password hashing with Argon2
-* **User Management**
+  - Secure user registration & login
+  - JWT-based authentication
+  - Password hashing with Argon2
 
-  * Follow / Unfollow users
-  * Fetch authenticated user (`/user/me`)
-  * Avatar upload with Multer
-* **Tweet System**
+- **User Management**
 
-  * Create tweets
-  * Edit tweets (author-only)
-  * Delete tweets (author-only)
-  * Fetch a single tweet
-  * Personalized timeline feed
-* **Authorization**
+  - Follow / Unfollow users
+  - Fetch authenticated user (`/user/me`)
+  - Avatar upload with Multer
 
-  * Ownership checks for tweet updates & deletion
-  * Protected routes using middleware
-* **Documentation**
+- **Tweet System**
 
-  * Swagger / OpenAPI docs using JSDoc annotations
-* **Infrastructure**
+  - Create tweets
+  - Edit tweets (author-only)
+  - Delete tweets (author-only)
+  - Fetch a single tweet
+  - Personalized timeline feed
 
-  * Docker & Docker Compose
-  * PostgreSQL with Prisma ORM
-* **CI/CD (Planned)**
+- **Authorization**
 
-  * Jenkins-based pipeline (GitHub Actions blocked due to billing)
+  - Ownership checks for tweet updates & deletion
+  - Protected routes using middleware
+
+- **Documentation**
+
+  - Swagger / OpenAPI docs using JSDoc annotations
+
+- **Infrastructure**
+
+  - Docker & Docker Compose
+  - PostgreSQL with Prisma ORM
+
+- **CI/CD (Planned)**
+
+  - Jenkins-based pipeline (GitHub Actions blocked due to billing)
 
 ---
 
@@ -74,12 +80,12 @@ A short walkthrough demonstrating authentication, user flows, tweet creation, ed
 
 ## 🌍 Deployment Notes
 
-* Fully Dockerized for local or cloud deployment
-* Designed to run on **EC2 / VPS**
-* Supports persistent volumes for:
+- Fully Dockerized for local or cloud deployment
+- Designed to run on **EC2 / VPS**
+- Supports persistent volumes for:
 
-  * PostgreSQL data
-  * Uploaded avatars
+  - PostgreSQL data
+  - Uploaded avatars
 
 ---
 
@@ -87,8 +93,8 @@ A short walkthrough demonstrating authentication, user flows, tweet creation, ed
 
 ### Prerequisites
 
-* Docker & Docker Compose
-* Git
+- Docker & Docker Compose
+- Git
 
 ---
 
@@ -151,9 +157,9 @@ http://localhost:4000/docs
 
 Includes documentation for:
 
-* Auth (register, login)
-* Users (me, follow, unfollow, avatar)
-* Tweets (create, edit, delete, fetch one, timeline)
+- Auth (register, login)
+- Users (me, follow, unfollow, avatar)
+- Tweets (create, edit, delete, fetch one, timeline)
 
 ---
 
@@ -212,29 +218,32 @@ src/
 
 ## 🧠 Design Decisions
 
-* **Auth vs User separation**
+- **Auth vs User separation**
 
-  * Auth handles credentials & tokens
-  * User handles profile & social graph
-* **Service Layer Pattern**
+  - Auth handles credentials & tokens
+  - User handles profile & social graph
 
-  * Controllers are thin
-  * Business rules live in services
-* **Ownership Enforcement**
+- **Service Layer Pattern**
 
-  * Tweets can only be edited/deleted by their author
-* **Minimal API responses**
+  - Controllers are thin
+  - Business rules live in services
 
-  * No sensitive data leaked
-  * IDs returned for client-side state
+- **Ownership Enforcement**
+
+  - Tweets can only be edited/deleted by their author
+
+- **Minimal API responses**
+
+  - No sensitive data leaked
+  - IDs returned for client-side state
 
 ---
 
 ## 🚧 CI/CD Status
 
-* GitHub Actions blocked due to billing restrictions
-* **Jenkins pipeline planned** 
-* Docker-first workflow already validated
+- GitHub Actions blocked due to billing restrictions
+- **Jenkins pipeline planned**
+- Docker-first workflow already validated
 
 ---
 
@@ -243,11 +252,11 @@ src/
 This project was built as a **real-world backend system**, not a tutorial app.
 It demonstrates:
 
-* Clean architecture
-* Correct REST resource modeling
-* Secure authentication
-* Production Docker workflows
-* Clear API documentation
+- Clean architecture
+- Correct REST resource modeling
+- Secure authentication
+- Production Docker workflows
+- Clear API documentation
 
 ---
 
