@@ -22,7 +22,7 @@ const userRouter = Router();
  *         description: Unauthorized
  */
 
-userRouter.post('/me', authMiddleware, getMe);
+userRouter.get('/me', authMiddleware, getMe);
 /**
  * @openapi
  * /user/{id}/follow:

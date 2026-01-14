@@ -13,13 +13,12 @@ const app = express();
 app.use(express.json());
 app.use(loggerMiddleware);
 app.use('/uploads', express.static('src/uploads'));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
 app.use('/tweets', tweetRouter);
 app.use(express.static(path.join(__dirname, '..', 'public')));
-
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);

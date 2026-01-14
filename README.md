@@ -12,10 +12,11 @@ The system focuses on **correct resource modeling**, **secure authentication**, 
 
 ---
 
-## 🎥 Video Demo
+## 🎥 Demo Video
 
-**2-minute Demo Video (Architecture + API Walkthrough)**
-*(To be added — Day 26)*
+A short walkthrough demonstrating authentication, user flows, tweet creation, editing, deletion, and the Dockerized production setup.
+
+▶️ Watch on YouTube:  [Blurt API demo](https://youtu.be/fFulyKLuVas)
 
 ---
 
@@ -232,7 +233,7 @@ src/
 ## 🚧 CI/CD Status
 
 * GitHub Actions blocked due to billing restrictions
-* **Jenkins pipeline planned** (Day 27+)
+* **Jenkins pipeline planned** 
 * Docker-first workflow already validated
 
 ---
